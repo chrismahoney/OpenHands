@@ -1,3 +1,4 @@
+import os
 from prompt_toolkit import PromptSession, print_formatted_text
 from prompt_toolkit.completion import FuzzyWordCompleter
 from prompt_toolkit.formatted_text import HTML
@@ -33,6 +34,14 @@ from openhands.utils.llm import get_supported_llm_models
 def display_settings(config: OpenHandsConfig) -> None:
     llm_config = config.get_llm_config()
     advanced_llm_settings = True if llm_config.base_url else False
+
+    # Display the configuration file path
+    config_path = os.path.expanduser(os.path.join(
+        '~',
+        '.openhands',
+        'settings.json'
+    ))
+    print_formatted_text(HTML(f"\nConfiguration file:     {config_path}\n"))
 
     # Prepare labels and values based on settings
     labels_and_values = []
